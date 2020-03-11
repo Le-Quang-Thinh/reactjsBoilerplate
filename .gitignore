@@ -3,7 +3,7 @@ coverage
 build
 node_modules
 stats.json
-
+./app/images/M_uu418/*.jpg
 # Cruft
 .DS_Store
 npm-debug.log

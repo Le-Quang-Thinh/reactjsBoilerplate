@@ -1,10 +1,14 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Container } from '@material-ui/core';
-
+import { withStyles } from '@material-ui/styles';
 import HeaderLogo from './headerLogo';
 import HeaderNavbar from './navigationHeader';
-const useStyles = makeStyles({
+
+// import Index from './customeSlider';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+const styles = () => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -19,20 +23,28 @@ const useStyles = makeStyles({
     width: '100%',
   },
 });
+class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-const Header = () => {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Container>
-        <div className={classes.appbar}>
-          <HeaderLogo />
-          <HeaderNavbar />
-        </div>
-      </Container>
-    </div>
-  );
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <Container>
+          <div className={classes.appbar}>
+            <HeaderLogo />
+            <HeaderNavbar />
+          </div>
+          {/* <Index /> */}
+        </Container>
+      </div>
+    );
+  }
+}
+Header.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
-
-export default Header;
+export default withStyles(styles)(Header);

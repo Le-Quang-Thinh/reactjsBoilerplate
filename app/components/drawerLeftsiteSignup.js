@@ -5,8 +5,11 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Welcome from './welcome';
 import TabLogin from './tabInSignUp';
+
 const useStyles = makeStyles(theme => ({
   list: {
     width: 400,
@@ -30,12 +33,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FromSignUp() {
+function FromSignUp(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
   });
-
+  console.log(props);
   const toggleDrawer = (side, open) => event => {
     if (
       event.type === 'keydown' &&
@@ -56,7 +59,11 @@ export default function FromSignUp() {
     >
       <List>
         <ListItem>
-          <Welcome />
+          {props.auth.FormLogin ? (
+            <Welcome name={props.auth.FormLogin} />
+          ) : (
+            <Welcome />
+          )}
         </ListItem>
         <ListItem button>
           <TabLogin />
@@ -82,3 +89,17 @@ export default function FromSignUp() {
     </div>
   );
 }
+
+FromSignUp.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  auth: PropTypes.any,
+};
+
+const mapStateToProps = state => ({
+  auth: state,
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(FromSignUp);

@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import FormLogin from './formLogin';
+import FormLogin from '../containers/HomePage/login';
 import FormSignUp from './signUp';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

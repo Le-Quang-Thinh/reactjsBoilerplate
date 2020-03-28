@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -6,6 +6,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import LoginSuccess from './p_profile/p_login_succes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,23 +31,46 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FormLogin() {
+export default function FormLogin(props) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
-
+  const [checked, setChecked] = useState(true);
+  const [values, setStates] = useState({ email: '', password: '' });
+  console.log(props);
   const handleChange = event => {
     setChecked(event.target.checked);
   };
+
+  const handleChangeText = e => {
+    const { id, value } = e.target;
+    setStates({ ...values, [id]: value });
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.loginWithEmail(values.email, values.password);
+  };
   const preventDefault = event => event.preventDefault();
+  // eslint-disable-next-line react/prop-types
+  if (props.auth.FormLogin.loggedIn) return <LoginSuccess />;
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
       <div>
-        <TextField required id="standard-required" label="UserName" />
         <TextField
-          id="standard-password-input"
+          required
+          id="email"
+          label="UserName"
+          onChange={handleChangeText}
+        />
+        <TextField
+          id="password"
           label="Password"
           type="password"
           autoComplete="current-password"
+          onChange={handleChangeText}
         />
       </div>
       <Grid container spacing={3}>
@@ -64,7 +89,7 @@ export default function FormLogin() {
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.pass_forgot}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
             Đăng nhập
           </Button>
         </Grid>
@@ -72,3 +97,6 @@ export default function FormLogin() {
     </form>
   );
 }
+FormLogin.propTypes = {
+  loginWithEmail: PropTypes.any.isRequired,
+};

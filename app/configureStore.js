@@ -10,7 +10,6 @@ import createReducer from './reducers';
 export default function configureStore(initialState = {}, history) {
   let composeEnhancers = compose;
   const reduxSagaMonitorOptions = {};
-
   // If Redux Dev Tools and Saga Dev Tools Extensions are installed, enable them
   /* istanbul ignore next */
   if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {

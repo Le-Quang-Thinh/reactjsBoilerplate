@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import LoginSuccess from './p_profile/p_login_succes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +49,6 @@ export default function FormLogin(props) {
   };
   const preventDefault = event => event.preventDefault();
   // eslint-disable-next-line react/prop-types
-  if (props.auth.FormLogin.loggedIn) return <LoginSuccess />;
   return (
     <form
       className={classes.root}

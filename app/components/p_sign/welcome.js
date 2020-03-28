@@ -31,9 +31,8 @@ const useStyles = makeStyles(theme => ({
 export default function Welcome(props) {
   const classes = useStyles();
   console.log(props);
-  if (props === '') {
+  if (props.name) {
     const { user } = props.name;
-
     return (
       <Grid container spacing={3}>
         <Grid

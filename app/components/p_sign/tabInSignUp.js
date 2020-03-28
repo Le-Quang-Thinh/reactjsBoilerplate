@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -7,8 +8,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
-import FormLogin from '../containers/HomePage/login';
+import FormLogin from './formLogin';
+import LoginSuccess from '../p_profile/p_login_succes';
 import FormSignUp from './signUp';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function TabLogin() {
+export default function TabLogin(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -59,7 +60,39 @@ export default function TabLogin() {
   const handleChangeIndex = index => {
     setValue(index);
   };
-
+  console.log(props);
+  // eslint-disable-next-line react/prop-types
+  const { loginWithEmail, auth } = props.value;
+  if (auth.LoginReducer.loggedIn)
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="Thông tin" {...a11yProps(0)} />
+            <Tab label="Thông báo" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <LoginSuccess />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <FormSignUp />
+          </TabPanel>
+        </SwipeableViews>
+      </div>
+    );
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -81,7 +114,7 @@ export default function TabLogin() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <FormLogin />
+          <FormLogin loginWithEmail={loginWithEmail} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <FormSignUp />

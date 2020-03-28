@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
-import FormLogin from '../../components/formLogin';
+import FromSignUp from '../../components/drawerLeftsiteSignup';
 import { loginWithEmail } from './actions/authActions';
 import saga from './saga';
 import reducer from './reducers/authResucers';
@@ -30,8 +30,8 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch,
   );
-const withSaga = injectSaga({ key: 'FormLogin', saga, mode: DAEMON });
-const withReducer = injectReducer({ key: 'FormLogin', reducer });
+const withSaga = injectSaga({ key: 'LoginSaga', saga, mode: DAEMON });
+const withReducer = injectReducer({ key: 'LoginReducer', reducer });
 // const withReducer = injectReducer({ key: 'homePage', reducer})
 const withConnect = connect(
   mapStateToProps,
@@ -41,4 +41,4 @@ export default compose(
   withSaga,
   withReducer,
   withConnect,
-)(FormLogin);
+)(FromSignUp);

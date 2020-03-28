@@ -5,10 +5,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Welcome from './welcome';
-import TabLogin from './tabInSignUp';
+import Welcome from './p_sign/welcome';
+import TabLogin from './p_sign/tabInSignUp';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function FromSignUp(props) {
+export default function FromSignUp(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -59,14 +58,14 @@ function FromSignUp(props) {
     >
       <List>
         <ListItem>
-          {props.auth.FormLogin ? (
-            <Welcome name={props.auth.FormLogin} />
+          {props.auth.LoginReducer.loggedIn ? (
+            <Welcome name={props.auth.LoginReducer} />
           ) : (
             <Welcome />
           )}
         </ListItem>
         <ListItem button>
-          <TabLogin />
+          <TabLogin value={props} />
         </ListItem>
         <Divider />
       </List>
@@ -94,12 +93,3 @@ FromSignUp.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   auth: PropTypes.any,
 };
-
-const mapStateToProps = state => ({
-  auth: state,
-});
-
-export default connect(
-  mapStateToProps,
-  null,
-)(FromSignUp);

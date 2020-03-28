@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FromSignUp from './drawerLeftsiteSignup';
+import FromSignUp from '../containers/HomePage/login';
 import Navigation from './navigation';
 import NavigationAction from './navigationAction';
 import Search from './search';

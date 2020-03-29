@@ -9,7 +9,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import FormLogin from './formLogin';
-import LoginSuccess from '../p_profile/p_login_succes';
+import Profile from '../p_profile/p_profile';
+import Notify from '../p_profile/p_notify';
 import FormSignUp from './signUp';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,7 +63,7 @@ export default function TabLogin(props) {
   };
   console.log(props);
   // eslint-disable-next-line react/prop-types
-  const { loginWithEmail, auth } = props.value;
+  const { loginWithEmail, auth, registerWithEmail } = props.value;
   if (auth.LoginReducer.loggedIn)
     return (
       <div className={classes.root}>
@@ -85,10 +86,10 @@ export default function TabLogin(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <LoginSuccess />
+            <Profile />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <FormSignUp />
+            <Notify />
           </TabPanel>
         </SwipeableViews>
       </div>
@@ -117,7 +118,7 @@ export default function TabLogin(props) {
           <FormLogin loginWithEmail={loginWithEmail} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <FormSignUp />
+          <FormSignUp registerWithEmail={registerWithEmail} />
         </TabPanel>
       </SwipeableViews>
     </div>

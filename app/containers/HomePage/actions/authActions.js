@@ -30,10 +30,11 @@ export const loginWithEmailFailure = error => ({
   error,
 });
 
-export const registerWithEmail = (email, password) => ({
+export const registerWithEmail = (email, password, name) => ({
   type: types.REGISTER_WITH_EMAIL.REQUEST,
   email,
   password,
+  name,
 });
 
 export const registerWithEmailSuccess = credential => ({

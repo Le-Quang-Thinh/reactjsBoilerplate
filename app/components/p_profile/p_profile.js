@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function LoginSuccess() {
+export default function Profile() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 

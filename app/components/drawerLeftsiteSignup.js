@@ -74,10 +74,16 @@ export default function FromSignUp(props) {
 
   return (
     <div>
-      <Avatar
-        src="../../app/images/icon-512x512.png"
-        onClick={toggleDrawer('right', true)}
-      />
+      {props.auth.LoginReducer.user.email ? (
+        <Avatar onClick={toggleDrawer('right', true)}>
+          {props.auth.LoginReducer.user.email}
+        </Avatar>
+      ) : (
+        <Avatar
+          src="../../app/images/icon-512x512.png"
+          onClick={toggleDrawer('right', true)}
+        />
+      )}
       <Drawer
         anchor="right"
         open={state.right}

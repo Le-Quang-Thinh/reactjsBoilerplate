@@ -13,5 +13,4 @@ const config = {
   appId: '1:302388487347:web:a5cab4dfb5c6f76de1fcc6',
 };
 firebase.initializeApp(config);
-// firebase.firestore().settings({ timestampsInSnapshots: true });
 export default firebase;

@@ -26,6 +26,7 @@ const authReducer = (state = initialState, action) => {
         message: null,
       };
     case types.LOGIN.SUCCESS:
+    case types.REGISTER_WITH_EMAIL.SUCCESS:
     case types.LOGIN_WITH_EMAIL.SUCCESS:
       return {
         ...state,

@@ -11,7 +11,7 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import FromSignUp from '../../components/drawerLeftsiteSignup';
-import { loginWithEmail } from './actions/authActions';
+import { loginWithEmail, registerWithEmail } from './actions/authActions';
 import saga from './saga';
 import reducer from './reducers/authResucers';
 
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       loginWithEmail,
+      registerWithEmail,
     },
     dispatch,
   );

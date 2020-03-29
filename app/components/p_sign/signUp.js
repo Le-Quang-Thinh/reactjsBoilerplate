@@ -3,10 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Radio from '@material-ui/core/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import PropTypes from 'prop-types';
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
@@ -29,58 +26,46 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FormSignUp() {
+export default function FormSignUp(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('female');
-  const handleChange = event => {
-    setValue(event.target.value);
+  const [values, setStates] = React.useState({
+    email: '',
+    password: '',
+    name: '',
+  });
+
+  const handleChangeText = e => {
+    const { id, value } = e.target;
+    setStates({ ...values, [id]: value });
   };
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.registerWithEmail(values.email, values.password, values.name);
+  };
+  console.log(props);
   return (
     <>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
-          <TextField required id="standard-required" label="UserName" />
           <TextField
-            id="standard-password-input"
+            required
+            id="email"
+            label="email"
+            onChange={handleChangeText}
+          />
+          <TextField
+            id="password"
             label="Password"
             type="password"
             autoComplete="current-password"
+            onChange={handleChangeText}
           />
-          <TextField
-            id="standard-password-input"
-            label="RePassword"
-            type="password"
-            autoComplete="current-password"
-          />
-          <TextField label="Name" />
-          <TextField type="emal" required label="Emal" />
+          <TextField id="name" label="Name" onChange={handleChangeText} />
         </div>
       </form>
       <Grid container spacing={3}>
-        <FormLabel component="legend">Giới tính</FormLabel>
-        <RadioGroup
-          aria-label="gender"
-          name="gender1"
-          value={value}
-          onChange={handleChange}
-          className={classes.btn}
-        >
-          <Grid item xs={12}>
-            <FormControlLabel
-              value="female"
-              control={<Radio />}
-              label="Female"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-          </Grid>
-        </RadioGroup>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
             Đăng ký
           </Button>
         </Grid>
@@ -88,3 +73,8 @@ export default function FormSignUp() {
     </>
   );
 }
+
+FormSignUp.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  registerWithEmail: PropTypes.any.isRequired,
+};

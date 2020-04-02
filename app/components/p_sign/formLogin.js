@@ -34,7 +34,6 @@ export default function FormLogin(props) {
   const classes = useStyles();
   const [checked, setChecked] = useState(true);
   const [values, setStates] = useState({ email: '', password: '' });
-  console.log(props);
   const handleChange = event => {
     setChecked(event.target.checked);
   };

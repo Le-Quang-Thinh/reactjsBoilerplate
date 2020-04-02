@@ -37,7 +37,6 @@ export default function FromSignUp(props) {
   const [state, setState] = React.useState({
     right: false,
   });
-  console.log(props);
   const toggleDrawer = (side, open) => event => {
     if (
       event.type === 'keydown' &&
@@ -74,7 +73,7 @@ export default function FromSignUp(props) {
 
   return (
     <div>
-      {props.auth.LoginReducer.user.email ? (
+      {props.auth.LoginReducer.user ? (
         <Avatar onClick={toggleDrawer('right', true)}>
           {props.auth.LoginReducer.user.email}
         </Avatar>

@@ -42,7 +42,6 @@ export default function FormSignUp(props) {
     e.preventDefault();
     props.registerWithEmail(values.email, values.password, values.name);
   };
-  console.log(props);
   return (
     <>
       <form className={classes.root} noValidate autoComplete="off">

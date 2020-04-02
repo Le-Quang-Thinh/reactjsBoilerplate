@@ -11,23 +11,25 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import FromSignUp from '../../components/drawerLeftsiteSignup';
-import { loginWithEmail, registerWithEmail } from './actions/authActions';
+import {
+  loginWithEmail,
+  registerWithEmail,
+  logout,
+} from './actions/authActions';
 import saga from './saga';
 import reducer from './reducers/authResucers';
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    auth: state,
-    // auth: state.firebase.auth,
-  };
-};
+const mapStateToProps = state => ({
+  auth: state,
+  // auth: state.firebase.auth,
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       loginWithEmail,
       registerWithEmail,
+      logout,
     },
     dispatch,
   );

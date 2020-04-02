@@ -6,13 +6,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import DuoIcon from '@material-ui/icons/Duo';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
-
+import PropTypes from 'prop-types';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -24,54 +24,63 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Profile() {
+export default function Profile(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
     setOpen(!open);
   };
-
+  const handleLogOut = e => {
+    e.preventDefault();
+    // eslint-disable-next-line react/prop-types
+    props.logout();
+  };
   return (
     <List
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          Nested List Items
+          List item
         </ListSubheader>
       }
       className={classes.root}
     >
       <ListItem button>
         <ListItemIcon>
-          <SendIcon />
+          <AccountCircleIcon />
         </ListItemIcon>
-        <ListItemText primary="Sent mail" />
+        <ListItemText primary="profile" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
-          <DraftsIcon />
+          <DuoIcon />
         </ListItemIcon>
-        <ListItemText primary="Drafts" />
+        <ListItemText primary="video like" />
       </ListItem>
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
-          <InboxIcon />
+          <SettingsIcon />
         </ListItemIcon>
-        <ListItemText primary="Inbox" />
+        <ListItemText primary="setting" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
+          <ListItem button className={classes.nested} onClick={handleLogOut}>
             <ListItemIcon>
-              <StarBorder />
+              <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Starred" />
+            <ListItemText primary="logout" />
           </ListItem>
         </List>
       </Collapse>
     </List>
   );
 }
+
+// eslint-disable-next-line react/no-typos
+Profile.PropTypes = {
+  logout: PropTypes.any.isRequired,
+};

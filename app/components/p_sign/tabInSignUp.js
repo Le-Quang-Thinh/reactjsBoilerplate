@@ -61,9 +61,8 @@ export default function TabLogin(props) {
   const handleChangeIndex = index => {
     setValue(index);
   };
-  console.log(props);
   // eslint-disable-next-line react/prop-types
-  const { loginWithEmail, auth, registerWithEmail } = props.value;
+  const { loginWithEmail, auth, registerWithEmail, logout } = props.value;
   if (auth.LoginReducer.loggedIn)
     return (
       <div className={classes.root}>
@@ -86,7 +85,7 @@ export default function TabLogin(props) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <Profile />
+            <Profile logout={logout} />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
             <Notify />

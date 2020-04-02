@@ -54,6 +54,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         loggedIn: false,
+        user: '',
       };
     case types.SYNC_USER:
       return {

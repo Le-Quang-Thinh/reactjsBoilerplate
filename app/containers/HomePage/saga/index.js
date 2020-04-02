@@ -6,6 +6,8 @@ import {
   loginWithEmailFailure,
   registerWithEmailSuccess,
   registerWithEmailFailure,
+  logoutSuccess,
+  logoutFailure,
 } from '../actions/authActions';
 
 import { types } from '../../../constants/authConstants';
@@ -33,6 +35,7 @@ function* registerWithEmailSaga(payload) {
       payload.email,
       payload.password,
     );
+    yield put(registerWithEmailSuccess(result));
     yield call(
       firestore
         .collection('users')
@@ -42,15 +45,25 @@ function* registerWithEmailSaga(payload) {
           createdAt: new Date(),
         }),
     );
-    yield put(registerWithEmailSuccess(result));
   } catch (error) {
     yield put(registerWithEmailFailure(error));
   }
 }
 
+function* logoutSaga() {
+  try {
+    const auth = firebase.auth();
+    const data = yield call([auth, auth.signOut]);
+    console.log(data);
+    yield put(logoutSuccess(data));
+  } catch (error) {
+    yield put(logoutFailure(error));
+  }
+}
 export default function* loginRootSaga() {
   yield all([
     takeEvery(types.LOGIN_WITH_EMAIL.REQUEST, loginWithEmailSaga),
     takeEvery(types.REGISTER_WITH_EMAIL.REQUEST, registerWithEmailSaga),
+    takeEvery(types.LOGOUT.REQUEST, logoutSaga),
   ]);
 }
